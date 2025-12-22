@@ -284,7 +284,7 @@
     }
     .overlay > h2 {
         color: white;
-        margin-top: 10vh;
+        margin-top: 8svh;
         display: inline-block;
         width: 100%;
         text-align: center;
