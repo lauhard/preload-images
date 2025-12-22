@@ -256,7 +256,7 @@
         will-change: transform;
         @media (width < 900px) {
              max-width: 95svw;
-             max-height: 85svh;
+             max-height: 75svh;
              width: 100%;
              height: auto;
         }
@@ -265,8 +265,10 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 100vh;
+        width: 100svw;
+        height: 100svh;
+        margin: 0;
+        padding: 0;
         background-color: hsla(0, 0%, 6%, 0.931);
         z-index: 5;
         cursor: pointer;
@@ -282,7 +284,7 @@
     }
     .overlay > h2 {
         color: white;
-        margin-top: 95px;
+        margin-top: 10vh;
         display: inline-block;
         width: 100%;
         text-align: center;
@@ -300,7 +302,7 @@
             right: calc((100svw / 2) + 30svw);
         }
         @media (width < 900px) {
-            top: 90%;
+            top: 95%;
             transform: translateY(-90%);
             &:nth-of-type(1) {
                 left: 52%;
