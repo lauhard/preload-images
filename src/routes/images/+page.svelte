@@ -266,7 +266,8 @@
         top: 0;
         left: 0;
         width: 100svw;
-        height: 100svh;
+        min-height: 100svh;
+        height: 110svh;
         margin: 0;
         padding: 0;
         background-color: hsla(0, 0%, 6%, 0.931);
