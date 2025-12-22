@@ -152,7 +152,7 @@
     }
     article.image-active {
         h1 {
-            display: none;
+            opacity: 0;
         }
     }
     .image-grid {
