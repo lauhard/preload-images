@@ -35,15 +35,24 @@
         if (li) {
             console.log("active image", li);
             current = li.dataset?.index ?? "-1";
-            document.startViewTransition(() => {
+            if (document.startViewTransition) {
+                document.startViewTransition(() => {
+                    activeImage = !activeImage;
+                });
+            } else {
                 activeImage = !activeImage;
-            });
+            }
         }
     };
-    const closeOverlay = (e: MouseEvent | TouchEvent | KeyboardEvent) =>
-        document.startViewTransition(() => {
+    const closeOverlay = (e: MouseEvent | TouchEvent | KeyboardEvent) => {
+        if (document.startViewTransition) {
+            document.startViewTransition(() => {
+                activeImage = false;
+            });
+        } else {
             activeImage = false;
-        });
+        }
+    };
 </script>
 
 <article class:image-active={activeImage}>
@@ -104,7 +113,7 @@
 <style lang="scss">
     :root {
         --image-width: 280px;
-        --image-height: 410px;
+        --image-height: 280px;
     }
     article {
         margin-top: 1rem;
@@ -136,13 +145,13 @@
         max-width: 100%;
         min-height: var(--image-width);
         max-height: var(--image-height);
-        height: max-content;
+        height: var(--image-height);//max-content;
         width: max-content;
         display: block;
     }
     a {
-        height: fit-content;
-        width: fit-content;
+        height: inherit;
+        width: inherit;
         max-height: inherit;
         max-width: inherit;
         max-width: inherit;
@@ -151,6 +160,7 @@
         place-items: center;
         place-content: center;
         position: relative;
+        -webkit-tap-highlight-color: transparent;
     }
     .placeholder-img,
     .img {
@@ -162,30 +172,29 @@
         min-height: inherit;
         min-width: inherit;
         max-width: inherit;
-        height: fit-content; //max-content
+        height: inherit;//fit-content; //max-content
         width: fit-content; //max-content
     }
 
     .placeholder-img {
         opacity: 1;
         filter: blur(0.5rem);
-        transition: all ease-in-out;
+        transition: opacity 100ms ease-in-out;
         animation: pulse 1.5s ease-in-out infinite;
+        will-change: opacity;
     }
     .img {
         position: absolute;
         opacity: 0;
         filter: blur(1rem);
-        transition-property: opacity, filter;
-        transition-timing-function: ease-in-out;
+        transition: none;
+        will-change: transform, opacity;
     }
 
     .completed {
         opacity: 1;
         filter: blur(0em);
-        transition-property: opacity, filter;
-        transition-duration: 800ms;
-        transition-timing-function: ease-in-out;
+        transition: opacity 400ms ease-in-out, filter 400ms ease-in-out;
     }
     .image-wrapper:has(.completed) {
         .placeholder-img {
@@ -209,6 +218,12 @@
         min-width: 200px;
         height: 100%;
         width: auto;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        pointer-events: none;
+        will-change: transform;
     }
     .overlay {
         position: fixed;
@@ -222,6 +237,12 @@
         opacity: 0;
         pointer-events: none;
         view-transition-name: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        transition: opacity 200ms ease-out;
+        will-change: opacity;
     }
     .image-active .overlay {
         opacity: 1;
