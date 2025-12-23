@@ -265,9 +265,10 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100svw;
-        min-height: 100svh;
-        height: 110svh;
+        width: 100vw;
+        min-width: 100vw;
+        min-height: 100vh;
+        height: 100vh;
         margin: 0;
         padding: 0;
         background-color: hsla(0, 0%, 6%, 0.931);
